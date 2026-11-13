@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gouvernance de l'IA pour têtes de réseau | ResoIA</title>
+<meta name="description" content="ResoIA aide les têtes de réseau de franchise, de licence de marque et de succursales à cadrer l'IA déjà utilisée par leurs équipes et leurs franchisés.">
+<meta property="og:title" content="Votre réseau utilise déjà l'IA. Donnez-lui un cadre.">
+<meta property="og:description" content="Gouvernance et usage de l'IA pour les têtes de réseau. Autodiagnostic en 2 minutes.">
+<meta property="og:image" content="https://resoia.fr/img/equipe.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232f3e4e'/%3E%3Crect x='12' y='12' width='8' height='8' fill='%23fff'/%3E%3Ccircle cx='7' cy='7' r='3' fill='%23fff'/%3E%3Ccircle cx='25' cy='7' r='3' fill='%23fff'/%3E%3Ccircle cx='7' cy='25' r='3' fill='%23fff'/%3E%3Ccircle cx='25' cy='25' r='3' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/BricolageGrotesque.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/NunitoSans.woff2" as="font" type="font/woff2" crossorigin>
+<script>if(!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("anim");</script>
+<style>
+/* resoia.fr : la version claire de ResoIA. Papier chaleureux, ardoise, ocre pour ce qui reste à cadrer.
+   Structure : promesse et photo, profils, méthode en trois temps, autodiagnostic, livrables, études, offres, contact. */
+@font-face { font-family: "Bricolage Grotesque"; src: url("fonts/BricolageGrotesque.woff2") format("woff2"); font-weight: 600 800; font-display: swap; }
+@font-face { font-family: "Nunito Sans"; src: url("fonts/NunitoSans.woff2") format("woff2"); font-weight: 400 700; font-display: swap; }
+:root {
+  --papier: #f5f2ec; --blanc: #ffffff; --encre: #22262c; --pierre: #4b5057; --muet: #6a6f77; --ligne: #e6e1da; --ligne-forte: #c9c3bb;
+  --ardoise: #2c6a80; --ardoise-vive: #2c6a80; --petrole-fonce: #1f4f63; --ardoise-clair: #d6e7ee; --nuit: #22262c;
+  --aubergine: #6a5a78; --mauve-pale: #e0d9e5; --bleu-pale: #d6e7ee;
+  --ocre: #8a5812; --ocre-clair: #f5e8d0; --brique: #a33a2c; --brique-clair: #f6dfdb; --ok: #23604f; --ok-clair: #dcece5;
+  --titre: "Bricolage Grotesque", "Trebuchet MS", "Segoe UI", sans-serif;
+  --sans: "Nunito Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+  --max: 1200px; --r: 24px; --r-bloc: 28px; --r-grand: 36px; --t: 180ms;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--papier); color: var(--pierre); font: 400 1.125rem/1.65 var(--sans); -webkit-font-smoothing: antialiased; }
+:focus-visible { outline: 2px solid var(--ardoise); outline-offset: 3px; }
+a { color: inherit; }
+p, li { max-width: 66ch; }
+h1, h2, h3 { margin: 0; font-family: var(--titre); font-weight: 800; color: var(--encre); text-wrap: balance; letter-spacing: -0.02em; }
+strong, b { font-weight: 700; }
+img { max-width: 100%; display: block; }
+.ico { width: 1em; height: 1em; flex: none; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.env { max-width: calc(var(--max) + 48px); margin: 0 auto; padding-inline: max(20px, env(safe-area-inset-left, 0px)); }
+.surtitre { display: block; font-size: .75rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--muet); }
+.titre { font-size: clamp(2.1rem, 1.3rem + 2.8vw, 3.25rem); line-height: 1.04; letter-spacing: -0.02em; }
+.accent { color: var(--ardoise-vive); }
+.chapo { font-size: clamp(1.0625rem, 1rem + .3vw, 1.1875rem); color: var(--pierre); margin: 0; }
+.section { padding-block: 112px; }
+.section-blanche { background: var(--blanc); }
+.tete { display: grid; gap: 16px; max-width: 760px; margin-bottom: 56px; }
+.tete-centre { margin-inline: auto; text-align: center; justify-items: center; }
+@media (max-width: 760px) { .section { padding-block: 80px; } .tete { margin-bottom: 40px; } }
+
+/* Boutons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 50px; padding: 0 26px; border-radius: 999px; border: 1px solid transparent;
+  font: 700 1rem/1.2 var(--sans); text-decoration: none; cursor: pointer; transition: background-color var(--t), transform var(--t), box-shadow var(--t); }
+.btn-plein { background: var(--ardoise); color: #fff; }
+.btn-plein:hover { background: var(--petrole-fonce); box-shadow: 0 12px 28px -12px rgba(44,106,128,.75); transform: translateY(-1px); }
+.btn-plein[disabled] { opacity: .55; cursor: not-allowed; }
+.btn-clair { background: #fff; color: var(--ardoise); }
+.btn-clair:hover { background: var(--ardoise-clair); }
+.btn-contour { background: transparent; color: var(--encre); border-color: var(--ligne-forte); }
+.btn-contour:hover { background: var(--blanc); }
+.lien { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--ardoise); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1.5px; }
+.lien .ico { transition: transform var(--t); }
+.lien:hover .ico { transform: translateY(2px); }
+
+/* En-tête */
+.evitement { position: absolute; left: -9999px; top: 8px; z-index: 50; background: var(--ardoise); color: #fff; padding: 10px 16px; border-radius: 999px; font-weight: 600; }
+.evitement:focus { left: 16px; }
+.entete { position: sticky; top: 0; z-index: 30; background: rgba(246,242,235,.86); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid transparent; transition: border-color var(--t); }
+.entete.defile { border-bottom-color: var(--ligne); }
+.entete .env { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 72px; }
+.marque { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
+.marque svg { height: 32px; width: auto; display: block; }
+.nav { display: flex; align-items: center; gap: 4px; }
+.nav a:not(.btn) { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; font-weight: 600; color: var(--encre); font-size: .9375rem; text-decoration: none; color: var(--encre); border-radius: 999px; transition: background-color var(--t); }
+.nav a:not(.btn):hover { background: rgba(47,62,78,.07); }
+.nav .btn { min-height: 44px; padding: 0 20px; font-size: .9375rem; margin-left: 8px; }
+.menu-btn { display: none; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--ligne-forte); background: transparent; font: 600 .9375rem var(--sans); color: var(--encre); align-items: center; gap: 8px; cursor: pointer; }
+@media (max-width: 900px) {
+  .nav { display: none; } .menu-btn { display: inline-flex; }
+  .entete.ouvert .env { flex-wrap: wrap; }
+  .entete.ouvert .nav { display: flex; flex-direction: column; align-items: stretch; width: 100%; padding-bottom: 16px; }
+  .entete.ouvert .nav .btn { margin: 8px 0 0; }
+}
+
+/* Accroche */
+.accroche { padding-block: 56px 96px; overflow: hidden; }
+.accroche .env { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 56px; align-items: center; }
+.accroche-texte { display: grid; gap: 26px; justify-items: start; }
+.accroche h1 { font-size: clamp(2.6rem, 1.4rem + 3.4vw, 4rem); line-height: 1.02; letter-spacing: -0.025em; }
+.accroche .actions { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.visuel { position: relative; margin-right: calc(-1 * max(20px, (100vw - var(--max)) / 2)); }
+.visuel > img { width: 100%; height: 540px; object-fit: cover; border-radius: var(--r-grand) 0 0 var(--r-grand); }
+.carte-flottante { position: absolute; left: -56px; bottom: 40px; width: min(380px, 80%); background: #fff; border-radius: var(--r); padding: 20px 22px; box-shadow: 0 30px 60px -24px rgba(29,34,40,.35); display: grid; gap: 12px; }
+.carte-flottante-tete { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: .8125rem; color: var(--pierre); }
+.carte-flottante-tete strong { color: var(--encre); font-size: .9375rem; }
+.ligne-usage { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-top: 10px; border-top: 1px solid var(--ligne); font-size: .9375rem; font-weight: 600; }
+@media (max-width: 960px) {
+  .accroche .env { grid-template-columns: 1fr; gap: 40px; }
+  .visuel { margin-right: 0; }
+  .visuel > img { height: 360px; border-radius: 24px; }
+  .carte-flottante { left: 16px; right: 16px; width: auto; bottom: -32px; }
+  .accroche { padding-bottom: 104px; }
+}
+
+/* Statuts */
+.statut { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; font: 600 .6875rem/1.2 var(--sans); letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+.statut .ico { width: 12px; height: 12px; stroke-width: 2.6; }
+.statut-ok { color: var(--ok); background: var(--ok-clair); }
+.statut-cadrer { color: var(--ocre); background: var(--ocre-clair); }
+.statut-interdit { color: var(--brique); background: var(--brique-clair); }
+
+/* Bandeau qui défile */
+.bandeau { background: var(--blanc); border-block: 1px solid var(--ligne); padding-block: 28px; }
+.bandeau .env { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 24px; }
+.defile { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.piste { display: flex; gap: 48px; width: max-content; }
+.piste span { display: inline-flex; align-items: center; gap: 48px; white-space: nowrap; font-family: var(--titre); font-weight: 700; font-size: 1.25rem; color: var(--muet); }
+.piste span::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--ligne-forte); }
+.pause { min-height: 44px; min-width: 44px; border-radius: 999px; border: 1px solid var(--ligne-forte); background: transparent; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; color: var(--encre); }
+@media (max-width: 700px) { .bandeau .env { grid-template-columns: 1fr auto; } .bandeau .surtitre { grid-column: 1 / -1; } }
+
+/* Profils */
+.onglets { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 32px; }
+.onglet { min-height: 48px; padding: 0 22px; border-radius: 999px; border: 1px solid var(--ligne-forte); background: transparent; font: 600 1rem var(--sans); color: var(--encre); cursor: pointer; transition: background-color var(--t), color var(--t), border-color var(--t); }
+.onglet:hover { background: #fff; }
+.onglet[aria-selected="true"] { background: var(--ardoise); border-color: var(--ardoise); color: #fff; }
+.panneau { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); background: #fff; border-radius: 28px; overflow: hidden; border: 1px solid var(--ligne); }
+.panneau-texte { padding: 48px; display: grid; gap: 24px; align-content: start; }
+.citation { font-size: clamp(1.375rem, 1.1rem + 1vw, 1.875rem); line-height: 1.3; font-weight: 600; letter-spacing: -0.02em; margin: 0; }
+.panneau-texte p { margin: 0; color: var(--pierre); }
+.chiffres-panneau { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-top: 24px; border-top: 1px solid var(--ligne); }
+.chiffres-panneau strong { display: block; font-size: 2rem; line-height: 1.05; letter-spacing: -0.03em; color: var(--ardoise); font-variant-numeric: tabular-nums; }
+.chiffres-panneau span { font-size: .875rem; color: var(--pierre); }
+.panneau > img { width: 100%; height: 100%; min-height: 320px; object-fit: cover; }
+.anim .panneau:not([hidden]) { animation: entrer 420ms cubic-bezier(.2,.7,.2,1); }
+@keyframes entrer { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@media (max-width: 860px) { .panneau { grid-template-columns: 1fr; } .panneau > img { min-height: 220px; height: 220px; order: -1; } .panneau-texte { padding: 28px 22px; } }
+
+/* Méthode */
+.temps { display: grid; border-top: 1px solid var(--ligne-forte); }
+.temps-ligne { display: grid; grid-template-columns: 120px minmax(0, 6fr) minmax(0, 4fr); gap: 24px 40px; padding-block: 44px; border-bottom: 1px solid var(--ligne-forte); }
+.temps-num { font-size: 3.5rem; line-height: .9; font-weight: 600; letter-spacing: -0.05em; color: var(--ligne-forte); font-variant-numeric: tabular-nums; }
+.temps-corps { display: grid; gap: 14px; }
+.temps-corps h3 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); letter-spacing: -0.03em; }
+.temps-corps p { margin: 0; color: var(--pierre); }
+.temps-infos { display: grid; gap: 14px; align-content: start; }
+.puce { display: inline-flex; align-items: center; gap: 8px; width: fit-content; padding: 6px 14px; border-radius: 999px; background: var(--ardoise-clair); color: var(--ardoise); font-weight: 600; font-size: .875rem; }
+.temps-infos dl { margin: 0; display: grid; gap: 10px; font-size: .9375rem; }
+.temps-infos dt { font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--pierre); font-weight: 600; }
+.temps-infos dd { margin: 2px 0 0; }
+@media (max-width: 860px) { .temps-ligne { grid-template-columns: 1fr; gap: 16px; padding-block: 32px; } .temps-num { font-size: 2.5rem; } }
+
+/* Autodiagnostic */
+.diag { background: var(--ardoise); color: #fff; position: relative; overflow: hidden; }
+.diag::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.08) 1px, transparent 1.4px); background-size: 22px 22px; pointer-events: none; }
+.diag .env { position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 56px; align-items: start; }
+.diag .surtitre { color: #c9d3de; }
+.diag .chapo { color: #d5dde6; }
+.diag-etapes { list-style: none; margin: 32px 0 0; padding: 0; display: grid; gap: 16px; }
+.diag-etapes li { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: baseline; color: #e6ebf0; }
+.diag-etapes b { font-size: .875rem; color: #9fb4c9; font-variant-numeric: tabular-nums; }
+.diag-note { margin-top: 24px; font-size: .8125rem; color: #b8c5d2; }
+.quiz { background: #fff; color: var(--encre); border-radius: 24px; padding: 32px; box-shadow: 0 40px 80px -40px rgba(0,0,0,.6); min-height: 420px; display: grid; align-content: start; gap: 22px; }
+.quiz-haut { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: .875rem; color: var(--pierre); }
+.progression { height: 6px; border-radius: 999px; background: var(--ardoise-clair); overflow: hidden; }
+.progression span { display: block; height: 100%; width: 0; background: var(--ardoise); border-radius: inherit; transition: width 400ms cubic-bezier(.2,.7,.2,1); }
+.quiz-axe { font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--ocre); }
+.quiz-question { font-size: clamp(1.25rem, 1.1rem + .6vw, 1.5rem); line-height: 1.3; letter-spacing: -0.02em; margin: 0; }
+.reponses { display: grid; gap: 10px; }
+.reponse { text-align: left; min-height: 54px; padding: 12px 18px; border-radius: 14px; border: 1px solid var(--ligne-forte); background: var(--papier); font: 600 1rem var(--sans); color: var(--encre); cursor: pointer; display: flex; align-items: center; gap: 12px; transition: border-color var(--t), background-color var(--t), transform var(--t); }
+.reponse:hover { border-color: var(--ardoise); background: #fff; }
+.reponse:active { transform: scale(.99); }
+.reponse i { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--ligne-forte); flex: none; }
+.quiz-bas { display: flex; justify-content: space-between; gap: 12px; }
+.quiz-bas button { background: none; border: 0; font: 600 .9375rem var(--sans); color: var(--ardoise); cursor: pointer; min-height: 44px; padding: 0; text-decoration: underline; text-underline-offset: 4px; }
+.resultat { display: grid; gap: 20px; }
+.niveau { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); line-height: 1.15; letter-spacing: -0.03em; margin: 0; }
+.score-global { display: flex; align-items: baseline; gap: 10px; }
+.score-global strong { font-size: 3.5rem; line-height: 1; letter-spacing: -0.05em; color: var(--ardoise); font-variant-numeric: tabular-nums; }
+.axes { display: grid; gap: 12px; }
+.axe { display: grid; grid-template-columns: 130px 1fr 48px; gap: 12px; align-items: center; font-size: .9375rem; }
+.axe-barre { height: 8px; border-radius: 999px; background: var(--ardoise-clair); overflow: hidden; }
+.axe-barre span { display: block; height: 100%; border-radius: inherit; background: var(--ardoise); transition: width 900ms cubic-bezier(.2,.7,.2,1); }
+.axe-barre.faible span { background: var(--ocre); }
+.axe b { text-align: right; font-variant-numeric: tabular-nums; }
+.conseil { background: var(--ocre-clair); border-radius: 14px; padding: 16px 18px; display: grid; gap: 6px; }
+.conseil strong { color: var(--ocre); }
+.conseil p { margin: 0; }
+.envoi-diag { display: grid; gap: 12px; padding-top: 16px; border-top: 1px solid var(--ligne); }
+.envoi-diag .champs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 960px) { .diag .env { grid-template-columns: 1fr; gap: 40px; } }
+@media (max-width: 520px) { .quiz { padding: 22px 18px; } .axe { grid-template-columns: 100px 1fr 40px; } .envoi-diag .champs { grid-template-columns: 1fr; } }
+
+/* Livrables */
+.livrables { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.livrable { background: var(--papier); border: 1px solid var(--ligne); border-radius: var(--r); padding: 24px; display: grid; gap: 18px; align-content: start; transition: transform 300ms cubic-bezier(.2,.7,.2,1), box-shadow 300ms; }
+.livrable:hover { transform: translateY(-4px); box-shadow: 0 24px 40px -28px rgba(29,34,40,.4); }
+.maquette { background: #fff; border: 1px solid var(--ligne); border-radius: 12px; height: 210px; padding: 16px; display: grid; gap: 8px; align-content: start; overflow: hidden; font-size: .75rem; }
+.maquette .l { height: 7px; border-radius: 4px; background: var(--ligne); }
+.maquette .t { height: 10px; width: 55%; border-radius: 4px; background: var(--ardoise); margin-bottom: 6px; }
+.maquette .rang { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--ligne); }
+.maquette .rang .l { flex: 1; }
+.pile { position: relative; height: 210px; }
+.pile .maquette { position: absolute; inset: 0; }
+.pile .maquette:nth-child(1) { transform: rotate(-5deg) translate(-8px, 6px); }
+.pile .maquette:nth-child(2) { transform: rotate(3deg) translate(6px, 2px); }
+.livrable h3 { font-size: 1.25rem; }
+.livrable p { margin: 0; color: var(--pierre); font-size: .9375rem; }
+@media (max-width: 900px) { .livrables { grid-template-columns: 1fr; } }
+
+/* Études */
+.etudes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.etude { background: #fff; border-radius: var(--r); padding: 32px 28px; display: grid; gap: 14px; align-content: start; border: 1px solid var(--ligne); }
+.etude strong { font-size: clamp(3rem, 2.2rem + 2.6vw, 4.5rem); line-height: .95; letter-spacing: -0.05em; color: var(--ardoise); font-variant-numeric: tabular-nums; }
+.etude p { margin: 0; font-size: 1.0625rem; }
+.etude small { font-size: .8125rem; color: var(--pierre); }
+.etudes-note { margin-top: 28px; color: var(--pierre); font-size: .9375rem; }
+@media (max-width: 900px) { .etudes { grid-template-columns: 1fr; } }
+
+/* Offres */
+.briques { background: #fff; border: 1px solid var(--ligne); border-radius: 24px; overflow: hidden; }
+.brique { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 8px 24px; align-items: center; padding: 22px 28px; border-bottom: 1px solid var(--ligne); }
+.brique:last-child { border-bottom: 0; }
+.brique-num { font-size: 1.5rem; font-weight: 600; color: var(--ligne-forte); font-variant-numeric: tabular-nums; }
+.brique h3 { font-size: 1.1875rem; letter-spacing: -0.02em; }
+.brique p { margin: 2px 0 0; color: var(--pierre); font-size: .9375rem; }
+.brique-prix { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.brique-prix small { display: block; font-weight: 400; color: var(--pierre); font-size: .8125rem; }
+.brique-pack { background: var(--ardoise-clair); }
+.offres-note { margin-top: 20px; color: var(--pierre); font-size: .9375rem; }
+@media (max-width: 700px) { .brique { grid-template-columns: 40px 1fr; padding: 20px; } .brique-prix { grid-column: 2; text-align: left; } }
+
+/* Contact */
+.contact .env { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 56px; align-items: start; }
+.contact-texte { display: grid; gap: 20px; align-content: start; }
+.contact h2 { font-size: clamp(2.6rem, 1.6rem + 3.6vw, 4.5rem); line-height: 1; letter-spacing: -0.05em; }
+.formulaire { background: #fff; border-radius: 24px; padding: 32px; border: 1px solid var(--ligne); display: grid; gap: 18px; }
+.champs { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.champ { display: grid; gap: 8px; min-width: 0; }
+.champ label { font-weight: 600; font-size: .9375rem; }
+.aide { margin: 0; font-size: .8125rem; color: var(--pierre); }
+.saisie { width: 100%; min-height: 50px; padding: 0 14px; border-radius: 12px; border: 1px solid #8a8478; background: #fff; font: 400 1rem/1.4 var(--sans); color: var(--encre); transition: border-color var(--t), box-shadow var(--t); }
+.saisie:focus { outline: none; border-color: var(--ardoise); box-shadow: 0 0 0 3px rgba(47,62,78,.15); }
+textarea.saisie { padding: 12px 14px; min-height: 120px; resize: vertical; }
+.saisie[aria-invalid="true"] { border-color: var(--brique); border-width: 2px; }
+.erreur { margin: 0; display: flex; align-items: center; gap: 6px; color: var(--brique); font-weight: 600; font-size: .875rem; }
+.piege { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.notice { margin: 0; font-size: .8125rem; color: var(--pierre); }
+.retour { background: var(--ok-clair); border-radius: 18px; padding: 24px; display: grid; gap: 10px; }
+.retour.erreur-envoi { background: var(--brique-clair); }
+.retour p { margin: 0; }
+.recap { white-space: pre-wrap; font: 400 .875rem/1.5 var(--sans); background: #fff; border-radius: 10px; padding: 12px; margin: 0; }
+@media (max-width: 960px) { .contact .env { grid-template-columns: 1fr; gap: 40px; } }
+@media (max-width: 560px) { .champs { grid-template-columns: 1fr; } .formulaire { padding: 22px 18px; } }
+
+/* Pied */
+.pied { background: var(--nuit); color: #e6ebf0; padding-block: 56px 40px; }
+.pied .env { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; }
+.pied svg { height: 30px; width: auto; }
+.pied p { color: #b8c5d2; font-size: .9375rem; }
+.pied h2 { font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: #9fb4c9; margin-bottom: 8px; }
+.pied ul { list-style: none; margin: 0; padding: 0; }
+.pied a { color: #e6ebf0; text-decoration: none; display: inline-flex; min-height: 40px; align-items: center; }
+.pied a:hover { text-decoration: underline; }
+.mentions { grid-column: 1 / -1; border-top: 1px solid rgba(255,255,255,.12); padding-top: 24px; }
+.mentions summary { cursor: pointer; font-weight: 600; min-height: 44px; display: flex; align-items: center; }
+.mentions div { display: grid; gap: 12px; padding-top: 8px; font-size: .875rem; color: #b8c5d2; max-width: 80ch; }
+.mentions p { margin: 0; color: #b8c5d2; font-size: .875rem; }
+@media (max-width: 700px) { .pied .env { grid-template-columns: 1fr; } }
+
+/* Charte : cartes de profils, méthode illustrée, section sombre */
+.tete-cote { max-width: none; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; column-gap: 48px; }
+.tete-cote .surtitre { grid-column: 1 / -1; }
+.tete-cote .chapo { font-size: 1.0625rem; }
+@media (max-width: 860px) { .tete-cote { grid-template-columns: 1fr; } }
+.profils { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.profil { border-radius: var(--r-bloc); padding: 32px 30px; display: grid; gap: 18px; align-content: start; transition: transform 300ms cubic-bezier(.2,.7,.2,1); }
+.profil:hover { transform: translateY(-6px); }
+.profil-bleu { background: var(--bleu-pale); }
+.profil-mauve { background: var(--mauve-pale); }
+.profil-encre { background: var(--encre); color: #d9dde2; }
+.profil.profil-encre .citation, .profil.profil-encre .chiffres-panneau strong { color: #fff; }
+.profil-encre .surtitre { color: #c4cad1; }
+.profil-encre .chiffres-panneau { border-top-color: rgba(255,255,255,.18); }
+.profil.profil-encre .chiffres-panneau span { color: #c4cad1; }
+.profil.profil-encre .chiffres-panneau { border-top-color: rgba(255,255,255,.18); }
+.profil-tete { display: flex; justify-content: space-between; align-items: center; }
+.profil-tete .ico { width: 22px; height: 22px; stroke-width: 1.7; color: var(--ardoise); }
+.profil-encre .profil-tete .ico { color: #fff; }
+.profil-mauve .profil-tete .ico { color: var(--aubergine); }
+.etiquette { display: inline-flex; padding: 6px 12px; border-radius: 999px; background: #fff; color: var(--encre); font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.profil-encre .etiquette { background: rgba(255,255,255,.14); color: #fff; }
+.profil p { margin: 0; }
+.profil .citation { font-family: var(--titre); font-weight: 700; font-size: clamp(1.25rem, 1.1rem + .5vw, 1.5rem); line-height: 1.25; color: var(--encre); letter-spacing: -0.01em; }
+.profil .chiffres-panneau { border-top: 1px solid rgba(34,38,44,.14); padding-top: 18px; }
+.profil .chiffres-panneau strong { font-family: var(--titre); font-weight: 800; font-size: 1.5rem; color: var(--encre); }
+.profil .chiffres-panneau span { font-size: .8125rem; color: var(--pierre); line-height: 1.4; display: block; }
+@media (max-width: 960px) { .profils { grid-template-columns: 1fr; } }
+.methode-grille { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px; align-items: start; }
+.methode-photo { margin: 0; position: sticky; top: 100px; }
+.methode-photo img { width: 100%; height: 520px; object-fit: cover; border-radius: var(--r-bloc); }
+.methode-grille .temps { border-top: 0; gap: 16px; }
+.methode-grille .temps-ligne { background: #fff; border: 0; border-radius: var(--r); padding: 32px; grid-template-columns: 90px minmax(0, 1fr); }
+.methode-grille .temps-infos { grid-column: 2; }
+.methode-grille .temps-num { color: var(--encre); font-family: var(--titre); font-weight: 800; font-size: 3rem; }
+.methode-grille .temps-ligne:nth-child(2) .temps-num { color: var(--aubergine); }
+.methode-grille .temps-ligne:nth-child(3) .temps-num { color: var(--ardoise); }
+@media (max-width: 960px) { .methode-grille { grid-template-columns: 1fr; } .methode-photo { position: static; } .methode-photo img { height: 300px; } .methode-grille .temps-ligne { grid-template-columns: 1fr; padding: 24px; } .methode-grille .temps-infos { grid-column: auto; } }
+.sombre { background: var(--encre); color: #d9dde2; }
+.sombre .titre { color: #fff; }
+.sombre .surtitre { color: #c4cad1; }
+.etudes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.etude { border: 0; border-radius: var(--r-bloc); padding: 32px; color: #fff; }
+.etude-large { grid-column: 1 / -1; }
+.etude-petrole { background: var(--ardoise); }
+.etude-aubergine { background: var(--aubergine); }
+.etude .surtitre { color: rgba(255,255,255,.75); }
+.etude strong { color: #fff; font-family: var(--titre); font-weight: 800; }
+.etude p { color: rgba(255,255,255,.9); font-family: var(--titre); font-weight: 600; font-size: clamp(1.125rem, 1rem + .5vw, 1.375rem); line-height: 1.3; max-width: 40ch; }
+.sombre .etudes-note { color: #c4cad1; }
+.diag { background: var(--ardoise); }
+.diag .titre { color: #fff; }
+[tabindex="-1"]:focus { outline: none; }
+.axe span:first-child { line-height: 1.3; }
+.diag-etapes b { color: var(--bleu-pale); }
+.quiz-axe { color: var(--aubergine); }
+.temps-num, .brique-num, .score-global strong, .niveau, .citation, .contact h2, .quiz-question, .livrable h3, .brique h3 { font-family: var(--titre); }
+.brique-num { font-weight: 800; }
+.livrable, .briques, .formulaire, .quiz { border-radius: var(--r-bloc); }
+@media (max-width: 760px) { .etudes { grid-template-columns: 1fr; } }
+
+/* Apparitions */
+@media (prefers-reduced-motion: no-preference) {
+  .piste { animation: defiler 40s linear infinite; }
+  .bandeau.arrete .piste { animation-play-state: paused; }
+  .anim [data-r] { opacity: 0; transform: translateY(28px); transition: opacity 700ms cubic-bezier(.2,.7,.2,1), transform 700ms cubic-bezier(.2,.7,.2,1); transition-delay: var(--rd, 0ms); }
+  .anim [data-r].vu { opacity: 1; transform: none; }
+  .anim .accroche-texte > * { animation: monter 800ms cubic-bezier(.2,.7,.2,1) both; }
+  .anim .accroche-texte > *:nth-child(2) { animation-delay: 90ms; } .anim .accroche-texte > *:nth-child(3) { animation-delay: 180ms; } .anim .accroche-texte > *:nth-child(4) { animation-delay: 270ms; }
+  .anim .visuel > img { animation: devoiler 1100ms cubic-bezier(.6,0,.2,1) both; }
+  .anim .carte-flottante { animation: monter 800ms cubic-bezier(.2,.7,.2,1) 700ms both; }
+  .anim .ligne-usage { animation: monter 600ms cubic-bezier(.2,.7,.2,1) both; }
+  .anim .ligne-usage:nth-of-type(1) { animation-delay: 1000ms; } .anim .ligne-usage:nth-of-type(2) { animation-delay: 1150ms; } .anim .ligne-usage:nth-of-type(3) { animation-delay: 1300ms; }
+}
+@keyframes defiler { to { transform: translateX(-50%); } }
+@keyframes monter { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes devoiler { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<a class="evitement" href="#contenu">Aller au contenu</a>
+
+<header class="entete" id="entete">
+  <div class="env">
+    <a class="marque" href="#haut" aria-label="ResoIA, haut de page"><svg viewBox="0 0 158 48" role="img" aria-label="ResoIA"><g style="fill:#2c6a80"><circle cx="8" cy="8" r="3.5"/><circle cx="24" cy="8" r="3.5"/><circle cx="40" cy="8" r="3.5"/><circle cx="8" cy="24" r="3.5"/><rect x="18" y="18" width="12" height="12"/><circle cx="40" cy="24" r="3.5"/><circle cx="8" cy="40" r="3.5"/><circle cx="24" cy="40" r="3.5"/><circle cx="40" cy="40" r="3.5"/></g><g style="fill:none;stroke:#2c6a80;stroke-width:1.2"><rect x="1.5" y="1.5" width="13" height="13"/><rect x="33.5" y="17.5" width="13" height="13"/><rect x="17.5" y="33.5" width="13" height="13"/></g><path style="fill:#22262c" d="M65.992 34.0H62.296V14.456H71.116Q72.460 14.456 73.524 14.876Q74.588 15.296 75.33 16.094Q76.072 16.892 76.478 18.012Q76.884 19.131 76.884 20.503Q76.884 22.52 75.973 23.976Q75.064 25.432 73.244 26.048L77.248 34.0H73.132L69.492 26.468H65.992ZM70.752 23.36Q71.816 23.36 72.432 22.786Q73.048 22.212 73.048 21.148V19.86Q73.048 18.796 72.432 18.235Q71.816 17.676 70.752 17.676H65.992V23.36ZM86.572 34.336Q84.948 34.336 83.674 33.79Q82.4 33.244 81.518 32.25Q80.636 31.256 80.16 29.842Q79.684 28.428 79.684 26.664Q79.684 24.927 80.146 23.528Q80.608 22.128 81.476 21.134Q82.344 20.14 83.604 19.594Q84.864 19.048 86.46 19.048Q88.168 19.048 89.428 19.636Q90.688 20.224 91.5 21.232Q92.312 22.240 92.717 23.57Q93.124 24.9 93.124 26.412V27.588H83.408V27.951Q83.408 29.548 84.304 30.514Q85.2 31.48 86.964 31.48Q88.307 31.48 89.161 30.92Q90.015 30.36 90.688 29.492L92.62 31.648Q91.724 32.908 90.17 33.622Q88.616 34.336 86.572 34.336ZM86.516 21.735Q85.088 21.735 84.247 22.688Q83.408 23.64 83.408 25.152V25.375H89.4V25.124Q89.4 23.612 88.658 22.674Q87.916 21.735 86.516 21.735ZM101.076 34.336Q98.976 34.336 97.548 33.622Q96.12 32.908 95.028 31.648L97.212 29.52Q98.024 30.444 98.990 30.976Q99.956 31.508 101.216 31.508Q102.504 31.508 103.078 31.060Q103.652 30.612 103.652 29.828Q103.652 29.184 103.246 28.806Q102.84 28.428 101.860 28.288L100.404 28.092Q98.024 27.784 96.778 26.733Q95.532 25.683 95.532 23.668Q95.532 22.604 95.924 21.75Q96.316 20.896 97.044 20.294Q97.772 19.692 98.794 19.37Q99.816 19.048 101.076 19.048Q102.140 19.048 102.966 19.202Q103.792 19.356 104.464 19.65Q105.136 19.944 105.696 20.378Q106.256 20.811 106.788 21.344L104.688 23.444Q104.044 22.772 103.148 22.323Q102.252 21.875 101.188 21.875Q100.012 21.875 99.494 22.296Q98.976 22.716 98.976 23.387Q98.976 24.116 99.410 24.494Q99.844 24.872 100.880 25.04L102.364 25.236Q107.096 25.908 107.096 29.548Q107.096 30.612 106.662 31.494Q106.228 32.376 105.444 33.006Q104.660 33.636 103.554 33.986Q102.448 34.336 101.076 34.336ZM116.056 34.336Q114.488 34.336 113.242 33.804Q111.996 33.272 111.114 32.263Q110.232 31.256 109.756 29.842Q109.28 28.428 109.28 26.664Q109.28 24.9 109.756 23.5Q110.232 22.1 111.114 21.106Q111.996 20.112 113.242 19.580Q114.488 19.048 116.056 19.048Q117.624 19.048 118.884 19.580Q120.144 20.112 121.026 21.106Q121.908 22.1 122.384 23.5Q122.86 24.9 122.86 26.664Q122.86 28.428 122.384 29.842Q121.908 31.256 121.026 32.263Q120.144 33.272 118.884 33.804Q117.624 34.336 116.056 34.336ZM116.056 31.451Q117.484 31.451 118.296 30.584Q119.108 29.716 119.108 28.036V25.32Q119.108 23.668 118.296 22.8Q117.484 21.932 116.056 21.932Q114.656 21.932 113.844 22.8Q113.032 23.668 113.032 25.32V28.036Q113.032 29.716 113.844 30.584Q114.656 31.451 116.056 31.451ZM125.435 34.0V31.032H128.012V17.424H125.435V14.456H134.312V17.424H131.708V31.032H134.312V34.0ZM150.188 34.0 148.62 29.016H141.676L140.136 34.0H136.384L142.935 14.456H147.528L154.024 34.0ZM145.203 17.816H145.064L142.572 25.852H147.724Z"/></svg></a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>Menu</button>
+    <nav class="nav" id="nav" aria-label="Navigation principale">
+      <a href="#profils">Pour qui</a>
+      <a href="#methode">Notre méthode</a>
+      <a href="#offres">Offres et prix</a>
+      <a href="#contact">Contact</a>
+      <a class="btn btn-plein" href="#diagnostic">Faire l'autodiagnostic</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenu" tabindex="-1">
+
+<section class="accroche" id="haut" aria-labelledby="titre-haut">
+  <div class="env">
+    <div class="accroche-texte">
+      <span class="surtitre">Franchise · licence de marque · succursales</span>
+      <h1 id="titre-haut">Votre réseau utilise déjà l'IA. <span class="accent">Donnez-lui un cadre.</span></h1>
+      <p class="chapo">Vos salariés et vos franchisés utilisent déjà l'IA, souvent sans le dire. Nous aidons les têtes de réseau à savoir quoi, à poser des règles simples et à en tirer parti, sans exposer le savoir-faire.</p>
+      <div class="actions">
+        <a class="btn btn-plein" href="#diagnostic">Faire l'autodiagnostic</a>
+        <a class="lien" href="#methode">Découvrir la méthode<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg></a>
+      </div>
+    </div>
+    <div class="visuel">
+      <img src="img/equipe.webp" alt="Une équipe de quatre personnes travaille ensemble autour d'un ordinateur portable." width="1400" height="915">
+      <div class="carte-flottante" aria-label="Extrait d'un registre des usages de l'IA">
+        <div class="carte-flottante-tete"><strong>Registre des usages</strong><span>Extrait type</span></div>
+        <div class="ligne-usage"><span>Annonce de recrutement</span><span class="statut statut-ok"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Autorisé</span></div>
+        <div class="ligne-usage"><span>Données clients locales</span><span class="statut statut-cadrer"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="14"/><line x1="12" y1="19" x2="12.01" y2="19"/></svg>À cadrer</span></div>
+        <div class="ligne-usage"><span>Manuel opératoire</span><span class="statut statut-interdit"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Interdit</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bandeau" id="bandeau" aria-label="Pour quels réseaux">
+  <div class="env">
+    <span class="surtitre">Conçu pour les têtes de réseau</span>
+    <div class="defile" aria-hidden="true"><div class="piste"><span>Franchise</span><span>Licence de marque</span><span>Succursales</span><span>Commission de franchisés</span><span>Animateurs réseau</span><span>CODIR</span><span>Manuel opératoire</span><span>Points de vente</span><span>20 à 250 personnes au siège</span><span>Franchise</span><span>Licence de marque</span><span>Succursales</span><span>Commission de franchisés</span><span>Animateurs réseau</span><span>CODIR</span><span>Manuel opératoire</span><span>Points de vente</span><span>20 à 250 personnes au siège</span></div></div>
+    <button class="pause" id="pause" type="button" aria-label="Arrêter le défilement" aria-pressed="false"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><line x1="9" y1="5" x2="9" y2="19"/><line x1="15" y1="5" x2="15" y2="19"/></svg></button>
+  </div>
+</section>
+
+<section class="section" id="profils" aria-labelledby="titre-profils">
+  <div class="env">
+    <div class="tete tete-cote" data-r>
+      <span class="surtitre">Selon votre fonction</span>
+      <h2 class="titre" id="titre-profils">Au siège, chacun voit l'IA par un bout différent.</h2>
+      <p class="chapo">Repérez la situation la plus proche de la vôtre. Elle nous dit par quelle brique commencer.</p>
+    </div>
+    <div class="profils">
+      <article class="profil profil-bleu" data-r>
+        <div class="profil-tete"><span class="etiquette">Dirigeant</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><path d="M10 21v-6h4v6"/></svg></div>
+        <p class="citation">« Je sais que mes franchisés utilisent l'IA. Je ne sais ni avec quoi, ni ce qui sort du réseau. »</p>
+        <span class="surtitre">Notre réponse</span>
+        <p>Un Radar IA : questionnaire anonyme au siège et dans le réseau, entretiens avec le CODIR, inventaire des outils. Vous recevez une carte des risques et cinq actions prioritaires.</p>
+        <div class="chiffres-panneau"><div><strong>2 à 3 jours</strong><span>pour le Radar IA</span></div><div><strong>Prix fixe</strong><span>1 500 à 3 000 € HT</span></div></div>
+      </article>
+      <article class="profil profil-encre" data-r>
+        <div class="profil-tete"><span class="etiquette">Direction réseau</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <p class="citation">« Mes animateurs font leurs comptes rendus avec ChatGPT. Je n'ai rien à leur proposer. »</p>
+        <span class="surtitre">Notre réponse</span>
+        <p>Une charte IA construite avec la commission de franchisés, un kit de déploiement, des ateliers par métier et des ambassadeurs au siège et en région.</p>
+        <div class="chiffres-panneau"><div><strong>37 %</strong><span>des franchisés attendent l'aide de leur tête de réseau (BP / FFF, 2026)</span></div><div><strong>OPCO</strong><span>prise en charge possible des formations</span></div></div>
+      </article>
+      <article class="profil profil-mauve" data-r>
+        <div class="profil-tete"><span class="etiquette">DAF et juridique</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <p class="citation">« Le manuel opératoire et le DIP ne doivent pas finir dans un outil grand public. »</p>
+        <span class="surtitre">Notre réponse</span>
+        <p>La carte de ce qui ne doit jamais sortir du réseau, des règles d'usage, un registre des usages et le registre RGPD à jour. L'AI Act est traité dès le cadrage.</p>
+        <div class="chiffres-panneau"><div><strong>2 pages</strong><span>pour la charte d'usage</span></div><div><strong>Article 4</strong><span>de l'AI Act, applicable depuis 2025</span></div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="methode" aria-labelledby="titre-methode">
+  <div class="env">
+    <div class="tete" data-r>
+      <span class="surtitre">La méthode</span>
+      <h2 class="titre" id="titre-methode">Voir, cadrer, avancer : trois mois pour reprendre la main.</h2>
+      <p class="chapo">Nous partons de ce que font vraiment vos équipes, du CODIR au point de vente. Notre mission s'arrête quand le cadre vit sans nous.</p>
+    </div>
+    <div class="methode-grille">
+    <figure class="methode-photo" data-r><img src="img/reunion.webp" alt="Une réunion de travail autour d'une table, ordinateurs ouverts." width="1000" height="674" loading="lazy"></figure>
+    <div class="temps">
+      <div class="temps-ligne" data-r>
+        <div class="temps-num">01</div>
+        <div class="temps-corps"><h3>Voir ce qui se pratique.</h3><p>Ce qui se pratique vraiment au siège et chez les franchisés : outils, comptes, données qui circulent. Un questionnaire anonyme et des entretiens suffisent à le savoir.</p></div>
+        <div class="temps-infos"><span class="puce">Mois 1</span><dl><div><dt>Avec</dt><dd>Le CODIR, les animateurs, un échantillon de franchisés</dd></div><div><dt>Vous recevez</dt><dd>Un état des lieux chiffré, une carte des risques, cinq actions</dd></div></dl></div>
+      </div>
+      <div class="temps-ligne" data-r>
+        <div class="temps-num">02</div>
+        <div class="temps-corps"><h3>Cadrer avec vos franchisés.</h3><p>Des règles que vos équipes comprennent : outils autorisés, données interdites, un référent, un registre. Le savoir-faire du réseau est protégé, et les franchisés ont contribué aux règles.</p></div>
+        <div class="temps-infos"><span class="puce">Mois 2</span><dl><div><dt>Avec</dt><dd>Le CODIR, la commission de franchisés, l'avocat du réseau</dd></div><div><dt>Vous recevez</dt><dd>Une charte de deux pages, un registre des usages, un kit franchisés</dd></div></dl></div>
+      </div>
+      <div class="temps-ligne" data-r>
+        <div class="temps-num">03</div>
+        <div class="temps-corps"><h3>Avancer, puis passer le relais.</h3><p>Ateliers par métier, ambassadeurs au siège et en région, bibliothèque de consignes partagées. Puis une feuille de route avec deux ou trois cas d'usage choisis pour ce qu'ils rapportent.</p></div>
+        <div class="temps-infos"><span class="puce">Mois 3, puis au mois</span><dl><div><dt>Avec</dt><dd>Les équipes métier, les animateurs, les ambassadeurs</dd></div><div><dt>Vous recevez</dt><dd>Des équipes autonomes et un référent IA externalisé si besoin</dd></div></dl></div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<section class="section diag" id="diagnostic" aria-labelledby="titre-diag">
+  <div class="env">
+    <div data-r>
+      <span class="surtitre">Autodiagnostic · dix questions</span>
+      <h2 class="titre" id="titre-diag" style="margin:16px 0 20px">Votre réseau est-il prêt ? Faites le test.</h2>
+      <p class="chapo">L'autodiagnostic situe votre réseau sur quatre axes : ce que vous savez des usages, votre cadre, la protection du savoir-faire et l'animation du réseau.</p>
+      <ol class="diag-etapes">
+        <li><b>01</b><span>Vous répondez à dix questions fermées. Aucune préparation.</span></li>
+        <li><b>02</b><span>Votre résultat s'affiche tout de suite, axe par axe.</span></li>
+        <li><b>03</b><span>Vous décidez de la suite : le garder pour vous ou nous l'envoyer.</span></li>
+      </ol>
+      <p class="diag-note">Le calcul se fait dans votre navigateur. Rien n'est envoyé sans votre accord.</p>
+    </div>
+    <div class="quiz" id="quiz" aria-live="polite">
+      <div id="quiz-depart" class="resultat">
+        <span class="quiz-axe">Autodiagnostic ResoIA</span>
+        <p class="quiz-question">Dix questions pour savoir si l'IA de votre réseau est vue, cadrée et accompagnée.</p>
+        <p class="aide" style="font-size:.9375rem">Répondez pour l'ensemble du réseau : siège et points de vente. « Je ne sais pas » compte comme non.</p>
+        <div><button class="btn btn-plein" type="button" id="quiz-go">Commencer</button></div>
+      </div>
+      <div id="quiz-etape" hidden>
+        <div class="quiz-haut"><span id="quiz-compteur">Question 1 sur 10</span><span id="quiz-axe-nom"></span></div>
+        <div class="progression" aria-hidden="true"><span id="quiz-barre"></span></div>
+        <span class="quiz-axe" id="quiz-axe"></span>
+        <p class="quiz-question" id="quiz-q" tabindex="-1"></p>
+        <div class="reponses" id="quiz-r"></div>
+        <div class="quiz-bas"><button type="button" id="quiz-retour">Question précédente</button></div>
+      </div>
+      <div id="quiz-resultat" class="resultat" hidden>
+        <span class="quiz-axe">Votre résultat</span>
+        <div class="score-global"><strong id="r-score">0</strong><span>sur 100</span></div>
+        <p class="niveau" id="r-niveau" tabindex="-1"></p>
+        <div class="axes" id="r-axes"></div>
+        <div class="conseil"><strong id="r-conseil-titre"></strong><p id="r-conseil"></p></div>
+        <form class="envoi-diag" id="envoi-diag" novalidate>
+          <p class="aide" style="font-size:.9375rem">Recevoir ce résultat commenté et en parler 30 minutes, sans engagement :</p>
+          <div class="champs">
+            <div class="champ"><label for="d-nom">Nom et prénom</label><input class="saisie" id="d-nom" name="nom" autocomplete="name" aria-describedby="d-nom-err"><p class="erreur" id="d-nom-err" hidden></p></div>
+            <div class="champ"><label for="d-courriel">Courriel professionnel</label><input class="saisie" id="d-courriel" name="courriel" type="email" autocomplete="email" aria-describedby="d-courriel-err"><p class="erreur" id="d-courriel-err" hidden></p></div>
+          </div>
+          <div class="champ"><label for="d-reseau">Nom de votre réseau</label><input class="saisie" id="d-reseau" name="reseau" aria-describedby="d-reseau-err"><p class="erreur" id="d-reseau-err" hidden></p></div>
+          <div class="piege" aria-hidden="true"><input type="checkbox" name="botcheck" tabindex="-1"></div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center"><button class="btn btn-plein" type="submit" id="d-envoyer">Envoyer mon résultat</button><button class="btn btn-contour" type="button" id="quiz-refaire">Recommencer</button></div>
+          <p class="notice">Vos réponses et vos coordonnées sont transmises par le service Web3Forms à contact@metivance.com, uniquement pour vous répondre.</p>
+        </form>
+        <div class="retour" id="d-ok" hidden tabindex="-1"><strong>Résultat envoyé</strong><p>Nous revenons vers vous par courriel pour fixer un échange de 30 minutes.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-blanche" id="livrables" aria-labelledby="titre-livrables">
+  <div class="env">
+    <div class="tete" data-r>
+      <span class="surtitre">Les livrables</span>
+      <h2 class="titre" id="titre-livrables">Ce que vous avez entre les mains au bout de trois mois.</h2>
+      <p class="chapo">Des documents courts, que vos équipes et vos franchisés lisent vraiment, et que vous pouvez montrer en CODIR.</p>
+    </div>
+    <div class="livrables">
+      <article class="livrable" data-r>
+        <div class="maquette" aria-hidden="true"><div class="t"></div>
+          <div class="rang"><div class="l"></div><span class="statut statut-ok">Autorisé</span></div>
+          <div class="rang"><div class="l"></div><span class="statut statut-ok">Autorisé</span></div>
+          <div class="rang"><div class="l"></div><span class="statut statut-cadrer">À cadrer</span></div>
+          <div class="rang"><div class="l"></div><span class="statut statut-interdit">Interdit</span></div>
+          <div class="rang"><div class="l"></div><span class="statut statut-interdit">Interdit</span></div></div>
+        <h3>Un registre des usages</h3>
+        <p>Chaque pratique avec son outil, ses données et un statut clair. Tenu par le référent, revu en CODIR chaque trimestre.</p>
+      </article>
+      <article class="livrable" data-r>
+        <div class="maquette" aria-hidden="true"><div class="t"></div><div class="l"></div><div class="l" style="width:92%"></div><div class="l" style="width:80%"></div><div class="l" style="width:40%;background:var(--ardoise-clair);margin-top:8px"></div><div class="l"></div><div class="l" style="width:86%"></div><div class="l" style="width:70%"></div><div class="l" style="width:40%;background:var(--ardoise-clair);margin-top:8px"></div><div class="l" style="width:90%"></div><div class="l" style="width:60%"></div></div>
+        <h3>Une charte de deux pages</h3>
+        <p>Les outils autorisés, les données à ne jamais saisir, à qui poser une question. Lisible en cinq minutes.</p>
+      </article>
+      <article class="livrable" data-r>
+        <div class="pile" aria-hidden="true">
+          <div class="maquette"><div class="t"></div><div class="l"></div><div class="l"></div></div>
+          <div class="maquette"><div class="t"></div><div class="l"></div><div class="l" style="width:70%"></div></div>
+          <div class="maquette"><div class="t" style="width:70%"></div><div class="l"></div><div class="l" style="width:85%"></div><div class="l" style="width:60%"></div><div class="rang"><div class="l"></div><span class="statut statut-ok">Validé</span></div><div class="l" style="width:75%"></div></div>
+        </div>
+        <h3>Un kit pour vos franchisés</h3>
+        <p>Guide, modèles de consignes validées et questions fréquentes, construits avec la commission de franchisés.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section sombre" id="etudes" aria-labelledby="titre-etudes">
+  <div class="env">
+    <div class="tete" data-r>
+      <span class="surtitre">Ce que disent les études</span>
+      <h2 class="titre" id="titre-etudes">L'usage a précédé le cadre. Les chiffres, avec leur source.</h2>
+    </div>
+    <div class="etudes">
+      <div class="etude etude-petrole etude-large" data-r><span class="surtitre">Banque Populaire / FFF · mai 2026</span><strong data-compte="77">77 %</strong><p>des franchiseurs utilisent l'IA, contre 36 % en 2023. Chez les franchisés : 33 %, contre 7 %.</p></div>
+      <div class="etude etude-aubergine" data-r><span class="surtitre">Inria / Datacraft</span><strong data-compte="68">68 %</strong><p>des salariés utilisent l'IA sans en informer leur direction.</p></div>
+      <div class="etude etude-aubergine" data-r><span class="surtitre">Impact AI, via JDN</span><strong data-compte="9">9 %</strong><p>des salariés disposent d'une charte ou d'un interlocuteur IA.</p></div>
+    </div>
+    <p class="etudes-note" data-r>Aux Assises de la Franchise de novembre 2026, l'étude ISC Paris pour la FFF décrit des animateurs de réseau qui se sont formés seuls à l'IA (L'Officiel de la Franchise).</p>
+  </div>
+</section>
+
+<section class="section section-blanche" id="offres" aria-labelledby="titre-offres">
+  <div class="env">
+    <div class="tete" data-r>
+      <span class="surtitre">Offres et prix</span>
+      <h2 class="titre" id="titre-offres">Cinq briques, des prix publics.</h2>
+      <p class="chapo">Chaque brique se commande seule. On entre par le Radar IA ; le référent au mois assure la suite.</p>
+    </div>
+    <div class="briques" data-r>
+      <div class="brique"><span class="brique-num">1</span><div><h3>Radar IA</h3><p>État des lieux chiffré, carte des risques, cinq actions prioritaires.</p></div><div class="brique-prix">1 500 à 3 000 € HT<small>2 à 3 jours, prix fixe</small></div></div>
+      <div class="brique"><span class="brique-num">2</span><div><h3>Cadre IA</h3><p>Charte d'usage, outils autorisés, environnement sécurisé, référent et registre.</p></div><div class="brique-prix">3 000 à 6 000 € HT<small>3 à 6 jours, forfait</small></div></div>
+      <div class="brique"><span class="brique-num">3</span><div><h3>Savoir-faire et réseau</h3><p>Ce qui ne doit pas sortir du manuel opératoire, charte construite avec les franchisés.</p></div><div class="brique-prix">5 000 à 12 000 € HT<small>5 à 10 jours</small></div></div>
+      <div class="brique"><span class="brique-num">4</span><div><h3>Autonomie des équipes</h3><p>Sensibilisation, ateliers métiers, ambassadeurs, bibliothèque de consignes.</p></div><div class="brique-prix">1 500 à 2 500 € HT<small>par journée de groupe</small></div></div>
+      <div class="brique"><span class="brique-num">5</span><div><h3>Référent IA externalisé</h3><p>Feuille de route priorisée, puis un référent qui tient le registre à jour.</p></div><div class="brique-prix">800 à 1 800 € HT<small>par mois, 6 à 12 mois</small></div></div>
+      <div class="brique brique-pack"><span class="brique-num">1–4</span><div><h3>Le parcours complet en trois mois</h3><p>Du Radar IA à l'autonomie des équipes, avec une remise de pack.</p></div><div class="brique-prix">12 000 à 22 000 € HT<small>3 mois</small></div></div>
+    </div>
+    <p class="offres-note">Fourchettes indicatives, ajustées à la taille du siège et du réseau. Prise en charge OPCO possible pour les formations, via un organisme certifié Qualiopi partenaire.</p>
+  </div>
+</section>
+
+<section class="section contact" id="contact" aria-labelledby="titre-contact">
+  <div class="env">
+    <div class="contact-texte" data-r>
+      <span class="surtitre">Premier échange</span>
+      <h2 id="titre-contact">Écrivez-nous.</h2>
+      <p class="chapo">Quelques lignes sur votre réseau suffisent. Nous vous proposons un échange de 30 minutes, sans engagement, puis une proposition écrite si vous le souhaitez.</p>
+      <a class="lien" href="mailto:contact@metivance.com">Écrire à contact@metivance.com</a>
+    </div>
+    <div>
+      <form class="formulaire" id="formulaire" novalidate data-r>
+        <div class="champs">
+          <div class="champ"><label for="f-nom">Nom et prénom</label><input class="saisie" id="f-nom" name="nom" autocomplete="name" aria-describedby="f-nom-err"><p class="erreur" id="f-nom-err" hidden></p></div>
+          <div class="champ"><label for="f-fonction">Fonction</label><select class="saisie" id="f-fonction" name="fonction"><option>PDG / DG</option><option>Directeur réseau ou animation</option><option>Directeur développement</option><option>DAF / juridique</option><option>Autre</option></select></div>
+        </div>
+        <div class="champs">
+          <div class="champ"><label for="f-reseau">Nom de votre réseau</label><input class="saisie" id="f-reseau" name="reseau" aria-describedby="f-reseau-err"><p class="erreur" id="f-reseau-err" hidden></p></div>
+          <div class="champ"><label for="f-taille">Points de vente</label><select class="saisie" id="f-taille" name="taille"><option>Moins de 20</option><option>20 à 50</option><option>50 à 150</option><option>Plus de 150</option></select></div>
+        </div>
+        <div class="champ"><label for="f-courriel">Courriel professionnel</label><input class="saisie" id="f-courriel" name="courriel" type="email" autocomplete="email" aria-describedby="f-courriel-err"><p class="erreur" id="f-courriel-err" hidden></p></div>
+        <div class="champ"><label for="f-message">Votre situation</label><p class="aide" id="f-message-aide">Facultatif : usages constatés, inquiétude sur le savoir-faire, projet d'outil.</p><textarea class="saisie" id="f-message" name="message" aria-describedby="f-message-aide"></textarea></div>
+        <div class="piege" aria-hidden="true"><input type="checkbox" name="botcheck" tabindex="-1"></div>
+        <div><button class="btn btn-plein" type="submit" id="f-envoyer">Demander un échange</button></div>
+        <p class="notice">Vos informations servent uniquement à vous répondre. Elles sont transmises par le service Web3Forms à contact@metivance.com.</p>
+      </form>
+      <div class="retour" id="f-ok" hidden tabindex="-1"><strong>Demande envoyée</strong><p>Merci. Nous revenons vers vous par courriel pour fixer l'échange.</p></div>
+      <div class="retour erreur-envoi" id="f-manuel" hidden tabindex="-1"><strong>Erreur : la demande n'est pas partie</strong><p>Le service d'envoi n'a pas répondu. Copiez ce récapitulatif et envoyez-le à contact@metivance.com.</p><pre class="recap" id="f-recap"></pre></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pied">
+  <div class="env">
+    <div>
+      <svg viewBox="0 0 158 48" role="img" aria-label="ResoIA"><g style="fill:#ffffff"><circle cx="8" cy="8" r="3.5"/><circle cx="24" cy="8" r="3.5"/><circle cx="40" cy="8" r="3.5"/><circle cx="8" cy="24" r="3.5"/><rect x="18" y="18" width="12" height="12"/><circle cx="40" cy="24" r="3.5"/><circle cx="8" cy="40" r="3.5"/><circle cx="24" cy="40" r="3.5"/><circle cx="40" cy="40" r="3.5"/></g><g style="fill:none;stroke:#ffffff;stroke-width:1.2"><rect x="1.5" y="1.5" width="13" height="13"/><rect x="33.5" y="17.5" width="13" height="13"/><rect x="17.5" y="33.5" width="13" height="13"/></g><path style="fill:#ffffff" d="M65.992 34.0H62.296V14.456H71.116Q72.460 14.456 73.524 14.876Q74.588 15.296 75.33 16.094Q76.072 16.892 76.478 18.012Q76.884 19.131 76.884 20.503Q76.884 22.52 75.973 23.976Q75.064 25.432 73.244 26.048L77.248 34.0H73.132L69.492 26.468H65.992ZM70.752 23.36Q71.816 23.36 72.432 22.786Q73.048 22.212 73.048 21.148V19.86Q73.048 18.796 72.432 18.235Q71.816 17.676 70.752 17.676H65.992V23.36ZM86.572 34.336Q84.948 34.336 83.674 33.79Q82.4 33.244 81.518 32.25Q80.636 31.256 80.16 29.842Q79.684 28.428 79.684 26.664Q79.684 24.927 80.146 23.528Q80.608 22.128 81.476 21.134Q82.344 20.14 83.604 19.594Q84.864 19.048 86.46 19.048Q88.168 19.048 89.428 19.636Q90.688 20.224 91.5 21.232Q92.312 22.240 92.717 23.57Q93.124 24.9 93.124 26.412V27.588H83.408V27.951Q83.408 29.548 84.304 30.514Q85.2 31.48 86.964 31.48Q88.307 31.48 89.161 30.92Q90.015 30.36 90.688 29.492L92.62 31.648Q91.724 32.908 90.17 33.622Q88.616 34.336 86.572 34.336ZM86.516 21.735Q85.088 21.735 84.247 22.688Q83.408 23.64 83.408 25.152V25.375H89.4V25.124Q89.4 23.612 88.658 22.674Q87.916 21.735 86.516 21.735ZM101.076 34.336Q98.976 34.336 97.548 33.622Q96.12 32.908 95.028 31.648L97.212 29.52Q98.024 30.444 98.990 30.976Q99.956 31.508 101.216 31.508Q102.504 31.508 103.078 31.060Q103.652 30.612 103.652 29.828Q103.652 29.184 103.246 28.806Q102.84 28.428 101.860 28.288L100.404 28.092Q98.024 27.784 96.778 26.733Q95.532 25.683 95.532 23.668Q95.532 22.604 95.924 21.75Q96.316 20.896 97.044 20.294Q97.772 19.692 98.794 19.37Q99.816 19.048 101.076 19.048Q102.140 19.048 102.966 19.202Q103.792 19.356 104.464 19.65Q105.136 19.944 105.696 20.378Q106.256 20.811 106.788 21.344L104.688 23.444Q104.044 22.772 103.148 22.323Q102.252 21.875 101.188 21.875Q100.012 21.875 99.494 22.296Q98.976 22.716 98.976 23.387Q98.976 24.116 99.410 24.494Q99.844 24.872 100.880 25.04L102.364 25.236Q107.096 25.908 107.096 29.548Q107.096 30.612 106.662 31.494Q106.228 32.376 105.444 33.006Q104.660 33.636 103.554 33.986Q102.448 34.336 101.076 34.336ZM116.056 34.336Q114.488 34.336 113.242 33.804Q111.996 33.272 111.114 32.263Q110.232 31.256 109.756 29.842Q109.28 28.428 109.28 26.664Q109.28 24.9 109.756 23.5Q110.232 22.1 111.114 21.106Q111.996 20.112 113.242 19.580Q114.488 19.048 116.056 19.048Q117.624 19.048 118.884 19.580Q120.144 20.112 121.026 21.106Q121.908 22.1 122.384 23.5Q122.86 24.9 122.86 26.664Q122.86 28.428 122.384 29.842Q121.908 31.256 121.026 32.263Q120.144 33.272 118.884 33.804Q117.624 34.336 116.056 34.336ZM116.056 31.451Q117.484 31.451 118.296 30.584Q119.108 29.716 119.108 28.036V25.32Q119.108 23.668 118.296 22.8Q117.484 21.932 116.056 21.932Q114.656 21.932 113.844 22.8Q113.032 23.668 113.032 25.32V28.036Q113.032 29.716 113.844 30.584Q114.656 31.451 116.056 31.451ZM125.435 34.0V31.032H128.012V17.424H125.435V14.456H134.312V17.424H131.708V31.032H134.312V34.0ZM150.188 34.0 148.62 29.016H141.676L140.136 34.0H136.384L142.935 14.456H147.528L154.024 34.0ZM145.203 17.816H145.064L142.572 25.852H147.724Z"/></svg>
+      <p>Gouvernance et usage de l'IA dans les réseaux de franchise, de licence de marque et de succursales.</p>
+    </div>
+    <nav aria-labelledby="pied-1"><h2 id="pied-1">Le site</h2><ul><li><a href="#profils">Pour qui</a></li><li><a href="#methode">Notre méthode</a></li><li><a href="#diagnostic">Autodiagnostic</a></li><li><a href="#offres">Offres et prix</a></li></ul></nav>
+    <nav aria-labelledby="pied-2"><h2 id="pied-2">Contact</h2><ul><li><a href="#contact">Contact</a></li><li><a href="mailto:contact@metivance.com">contact@metivance.com</a></li></ul></nav>
+    <details class="mentions" id="mentions">
+      <summary>Mentions légales et données personnelles</summary>
+      <div>
+        <p>ResoIA est une marque de MAZIAXIA, SAS au capital de 3 000 €. Siège social : 2 T rue de la Gagnerie, 44980 Sainte-Luce-sur-Loire. SIREN 899 123 640, SIRET 899 123 640 00026, RCS Nantes, TVA FR73899123640. Directeur de la publication : Eric Schneider, président. Contact : contact@metivance.com.</p>
+        <p>Hébergement : GitHub Pages, GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.</p>
+        <p>Données personnelles : les informations saisies dans les formulaires et l'autodiagnostic servent uniquement à vous répondre. Elles sont transmises par courriel au moyen du service Web3Forms, sous-traitant pour cet envoi, et ne sont ni cédées ni réutilisées. Le calcul de l'autodiagnostic se fait dans votre navigateur ; rien n'est envoyé sans votre accord. Accès, rectification, effacement : contact@metivance.com.</p>
+        <p>Photographies issues d'Unsplash, utilisées sous la licence Unsplash et retouchées. Police IBM Plex Sans hébergée avec le site. Aucun cookie de mesure d'audience.</p>
+        <p>Les textes et éléments graphiques de ce site sont la propriété de MAZIAXIA. Toute reproduction sans autorisation écrite est interdite.</p>
+      </div>
+    </details>
+  </div>
+</footer>
+
+<script>
+var CLE_WEB3FORMS = "97be214b-3a42-4abf-ac99-ae8b070371d2";
+(function () {
+  var mouvement = document.documentElement.classList.contains('anim');
+  var croix = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+
+  /* En-tête et menu */
+  var entete = document.getElementById('entete'), menuBtn = document.getElementById('menu-btn');
+  menuBtn.addEventListener('click', function () { var o = entete.classList.toggle('ouvert'); menuBtn.setAttribute('aria-expanded', o ? 'true' : 'false'); });
+  document.querySelectorAll('#nav a').forEach(function (a) { a.addEventListener('click', function () { entete.classList.remove('ouvert'); menuBtn.setAttribute('aria-expanded', 'false'); }); });
+  window.addEventListener('scroll', function () { entete.classList.toggle('defile', window.scrollY > 8); }, { passive: true });
+
+  /* Bandeau : pause */
+  var bandeau = document.getElementById('bandeau'), pause = document.getElementById('pause');
+  pause.addEventListener('click', function () {
+    var arrete = bandeau.classList.toggle('arrete');
+    pause.setAttribute('aria-pressed', arrete ? 'true' : 'false');
+    pause.setAttribute('aria-label', arrete ? 'Relancer le défilement' : 'Arrêter le défilement');
+    pause.innerHTML = arrete ? '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><polygon points="7 4 19 12 7 20 7 4"/></svg>' : '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><line x1="9" y1="5" x2="9" y2="19"/><line x1="15" y1="5" x2="15" y2="19"/></svg>';
+  });
+
+  /* Onglets des profils */
+  var onglets = [];
+  function choisir(o, focus) {
+    onglets.forEach(function (x) { var sel = x === o; x.setAttribute('aria-selected', sel ? 'true' : 'false'); x.tabIndex = sel ? 0 : -1; document.getElementById(x.getAttribute('aria-controls')).hidden = !sel; });
+    if (focus) o.focus();
+  }
+  onglets.forEach(function (o, i) {
+    o.addEventListener('click', function () { choisir(o); });
+    o.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); choisir(onglets[(i + (e.key === 'ArrowRight' ? 1 : onglets.length - 1)) % onglets.length], true); }
+    });
+  });
+
+  /* Apparitions et compteurs */
+  function compter(el) {
+    var cible = parseInt(el.getAttribute('data-compte'), 10), debut = null;
+    function pas(t) { if (!debut) debut = t; var k = Math.min(1, (t - debut) / 1300); k = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(cible * k) + ' %'; if (k < 1) requestAnimationFrame(pas); }
+    requestAnimationFrame(pas);
+  }
+  if (mouvement && 'IntersectionObserver' in window) {
+    var voisins = new Map();
+    document.querySelectorAll('[data-r]').forEach(function (el) { var i = voisins.get(el.parentNode) || 0; voisins.set(el.parentNode, i + 1); el.style.setProperty('--rd', Math.min(i, 3) * 100 + 'ms'); });
+    var obs = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (!e.isIntersecting) return; e.target.classList.add('vu'); var c = e.target.querySelector('[data-compte]'); if (c) compter(c); obs.unobserve(e.target); });
+    }, { threshold: .15, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-r]').forEach(function (el) { obs.observe(el); });
+  }
+
+  /* Envoi Web3Forms */
+  function envoyer(donnees) {
+    donnees.access_key = CLE_WEB3FORMS; donnees.from_name = 'Site resoia.fr';
+    return fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(donnees) })
+      .then(function (r) { return r.json().then(function (j) { return r.ok && j.success; }); });
+  }
+  function erreur(id, msg) {
+    var c = document.getElementById(id), p = document.getElementById(id + '-err');
+    if (msg) { c.setAttribute('aria-invalid', 'true'); p.innerHTML = croix; p.appendChild(document.createTextNode('Erreur : ' + msg)); p.hidden = false; return false; }
+    c.removeAttribute('aria-invalid'); p.hidden = true; return true;
+  }
+  var reCourriel = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  function verifier(pref, d) {
+    var ok = true, premier = null;
+    if (!erreur(pref + '-nom', d.nom ? '' : 'indiquez votre nom et votre prénom.')) { ok = false; premier = premier || pref + '-nom'; }
+    if (!erreur(pref + '-courriel', reCourriel.test(d.courriel) ? '' : (d.courriel ? "l'adresse est incomplète. Exemple : direction@votre-reseau.fr" : 'indiquez votre courriel professionnel.'))) { ok = false; premier = premier || pref + '-courriel'; }
+    if (!erreur(pref + '-reseau', d.reseau ? '' : 'indiquez le nom de votre réseau.')) { ok = false; premier = premier || pref + '-reseau'; }
+    if (!ok) document.getElementById(premier).focus();
+    return ok;
+  }
+
+  /* Formulaire de contact */
+  var form = document.getElementById('formulaire'), bouton = document.getElementById('f-envoyer');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var d = { nom: form.nom.value.trim(), fonction: form.fonction.value, reseau: form.reseau.value.trim(), taille: form.taille.value, courriel: form.courriel.value.trim(), message: form.message.value.trim() };
+    if (!verifier('f', d) || form.botcheck.checked) return;
+    bouton.disabled = true; bouton.textContent = 'Envoi en cours…';
+    envoyer({ subject: 'Demande d\'échange (resoia.fr) : ' + d.reseau, replyto: d.courriel, Nom: d.nom, Fonction: d.fonction, 'Réseau': d.reseau, 'Points de vente': d.taille, Courriel: d.courriel, Situation: d.message || '(non précisée)' })
+      .then(function (ok) { if (!ok) throw 0; form.hidden = true; var b = document.getElementById('f-ok'); b.hidden = false; b.focus(); })
+      .catch(function () {
+        document.getElementById('f-recap').textContent = 'Nom : ' + d.nom + '\nFonction : ' + d.fonction + '\nRéseau : ' + d.reseau + '\nPoints de vente : ' + d.taille + '\nCourriel : ' + d.courriel + (d.message ? '\n\n' + d.message : '');
+        var m = document.getElementById('f-manuel'); m.hidden = false; m.focus();
+      })
+      .then(function () { bouton.disabled = false; bouton.textContent = 'Demander un échange'; });
+  });
+
+  /* Autodiagnostic */
+  var AXES = { usages: 'Usages connus', cadre: 'Cadre', savoir: 'Savoir-faire', reseau: 'Animation du réseau' };
+  var Q = [
+    ['usages', "Savez-vous quels outils d'IA les salariés du siège utilisent ?"],
+    ['usages', "Savez-vous si vos franchisés ou vos responsables de point de vente utilisent l'IA ?"],
+    ['usages', 'Avez-vous mesuré ces usages, par un questionnaire ou des entretiens ?'],
+    ['cadre', "Existe-t-il des règles écrites sur l'usage de l'IA, comme une charte ?"],
+    ['cadre', "Vos équipes disposent-elles d'un outil d'IA validé, avec un compte professionnel ?"],
+    ['cadre', "Une personne est-elle désignée comme référent IA ?"],
+    ['savoir', "Avez-vous identifié ce qui, dans le manuel opératoire et le DIP, ne doit jamais sortir du réseau ?"],
+    ['savoir', "Vos franchisés savent-ils quelles données ils peuvent saisir dans un outil d'IA ?"],
+    ['reseau', "L'IA a-t-elle été abordée avec la commission de franchisés ou en réunion de réseau ?"],
+    ['reseau', "Vos animateurs savent-ils répondre aux questions des franchisés sur l'IA ?"]
+  ];
+  var CHOIX = [['Oui', 2], ['En partie', 1], ['Non', 0], ['Je ne sais pas', 0]];
+  var CONSEILS = {
+    usages: ['Commencer par le Radar IA', "Vous ne pouvez pas cadrer ce que vous ne voyez pas. En 2 à 3 jours, le Radar IA mesure les usages au siège et dans le réseau, et sort cinq actions prioritaires."],
+    cadre: ['Poser le Cadre IA', "Une charte de deux pages, des outils autorisés, un référent et un registre : un cadre simple que vos équipes appliquent, en 3 à 6 jours."],
+    savoir: ['Protéger le savoir-faire', "Cartographier ce qui ne doit pas sortir du manuel opératoire, puis écrire avec vos franchisés les règles qui le protègent."],
+    reseau: ['Outiller l\'animation du réseau', "Ateliers par métier, ambassadeurs en région et kit franchisés : vos animateurs deviennent le premier relais sur l'IA."]
+  };
+  var rep = [], i = 0;
+  var el = function (id) { return document.getElementById(id); };
+  function montrer(id) { ['quiz-depart', 'quiz-etape', 'quiz-resultat'].forEach(function (x) { el(x).hidden = x !== id; }); }
+  function question() {
+    el('quiz-compteur').textContent = 'Question ' + (i + 1) + ' sur ' + Q.length;
+    el('quiz-axe').textContent = AXES[Q[i][0]];
+    el('quiz-barre').style.width = (i / Q.length * 100) + '%';
+    el('quiz-q').textContent = Q[i][1];
+    var box = el('quiz-r'); box.innerHTML = '';
+    CHOIX.forEach(function (c) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'reponse'; b.innerHTML = '<i aria-hidden="true"></i>'; b.appendChild(document.createTextNode(c[0]));
+      b.addEventListener('click', function () { rep[i] = c[1]; i++; if (i < Q.length) { question(); el('quiz-q').focus(); } else resultat(); });
+      box.appendChild(b);
+    });
+    el('quiz-retour').hidden = i === 0;
+  }
+  function resultat() {
+    var parAxe = {}, total = 0;
+    Q.forEach(function (q, k) { parAxe[q[0]] = parAxe[q[0]] || { s: 0, m: 0 }; parAxe[q[0]].s += rep[k]; parAxe[q[0]].m += 2; total += rep[k]; });
+    var score = Math.round(total / (Q.length * 2) * 100);
+    var niveau = score < 35 ? "L'usage devance le cadre dans votre réseau." : score < 70 ? 'Votre cadre est en construction : il reste des angles morts.' : 'Votre réseau est bien engagé : il faut maintenant tenir dans la durée.';
+    var plusFaible = null, html = '';
+    Object.keys(AXES).forEach(function (a) {
+      var v = Math.round(parAxe[a].s / parAxe[a].m * 100);
+      if (plusFaible === null || v < parAxe[plusFaible].v) plusFaible = a;
+      parAxe[a].v = v;
+      html += '<div class="axe"><span>' + AXES[a] + '</span><div class="axe-barre' + (v < 50 ? ' faible' : '') + '"><span style="width:0" data-v="' + v + '"></span></div><b>' + v + '</b></div>';
+    });
+    el('r-axes').innerHTML = html;
+    el('r-score').textContent = score;
+    el('r-niveau').textContent = niveau;
+    el('r-conseil-titre').textContent = CONSEILS[plusFaible][0];
+    el('r-conseil').textContent = CONSEILS[plusFaible][1];
+    montrer('quiz-resultat'); el('quiz-barre').style.width = '100%';
+    requestAnimationFrame(function () { setTimeout(function () { el('r-axes').querySelectorAll('[data-v]').forEach(function (s) { s.style.width = s.getAttribute('data-v') + '%'; }); }, 60); });
+    el('r-niveau').focus();
+    resultatTexte = 'Score : ' + score + '/100\n' + Object.keys(AXES).map(function (a) { return AXES[a] + ' : ' + parAxe[a].v + '/100'; }).join('\n') + '\n\nRéponses :\n' + Q.map(function (q, k) { return (k + 1) + '. ' + q[1] + ' → ' + (['Non ou ne sait pas', 'En partie', 'Oui'][rep[k]]); }).join('\n');
+  }
+  var resultatTexte = '';
+  el('quiz-go').addEventListener('click', function () { rep = []; i = 0; montrer('quiz-etape'); question(); el('quiz-q').focus(); });
+  el('quiz-retour').addEventListener('click', function () { if (i > 0) { i--; question(); el('quiz-q').focus(); } });
+  el('quiz-refaire').addEventListener('click', function () { rep = []; i = 0; el('d-ok').hidden = true; el('envoi-diag').hidden = false; montrer('quiz-etape'); question(); el('quiz-q').focus(); });
+  var fd = el('envoi-diag'), bd = el('d-envoyer');
+  fd.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var d = { nom: fd.nom.value.trim(), courriel: fd.courriel.value.trim(), reseau: fd.reseau.value.trim() };
+    if (!verifier('d', d) || fd.botcheck.checked) return;
+    bd.disabled = true; bd.textContent = 'Envoi en cours…';
+    envoyer({ subject: 'Autodiagnostic (resoia.fr) : ' + d.reseau, replyto: d.courriel, Nom: d.nom, 'Réseau': d.reseau, Courriel: d.courriel, 'Résultat': resultatTexte })
+      .then(function (ok) { if (!ok) throw 0; fd.hidden = true; el('d-ok').hidden = false; el('d-ok').focus(); })
+      .catch(function () { erreur('d-courriel', "l'envoi a échoué. Écrivez-nous à contact@metivance.com."); })
+      .then(function () { bd.disabled = false; bd.textContent = 'Envoyer mon résultat'; });
+  });
+})();
+</script>
+</body>
+</html>
